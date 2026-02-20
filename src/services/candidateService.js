@@ -10,7 +10,7 @@ export async function getCandidateByEmail(email) {
 
     } catch (error) {
 
-        const msg = error.response?.data?.message || error.message || 'Error fetching candidate'
+        const msg = error.response?.data?.error || 'Error fetching candidate, check your email'
         
         throw new Error (msg)
 

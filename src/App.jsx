@@ -8,15 +8,19 @@ function App() {
   const [candidate, setCandidate] = useState(undefined)
   const [jobs, setJobs] = useState(null)
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadData()
+    console.log(candidate)
   }, [])
+
+  useEffect(() => {
+    console.log(candidate)
+  }, [candidate])
 
   async function loadData() {
     try {
-      setLoading(true)
 
       const candidate = await getCandidateByEmail(import.meta.env.VITE_EMAIL)
       setCandidate(candidate)
@@ -35,7 +39,7 @@ function App() {
     }
   }
 
-  if (loading) return <div className="loading">
+  if (loading) return <div className="loading flex">
     <i>Looking for positions...</i>
   </div>
 
