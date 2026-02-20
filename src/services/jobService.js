@@ -32,7 +32,6 @@ export async function applyToJob({ uuid, jobId, candidateId, repoUrl, applicatio
         return res.data;
 
     } catch (error) {
-        console.log(error.response.data)
 
         const msg = error.response?.data?.error || "Error applying to job";
 

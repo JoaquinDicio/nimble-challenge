@@ -12,12 +12,7 @@ function App() {
 
   useEffect(() => {
     loadData()
-    console.log(candidate)
   }, [])
-
-  useEffect(() => {
-    console.log(candidate)
-  }, [candidate])
 
   async function loadData() {
     try {
