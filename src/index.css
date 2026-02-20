@@ -1,0 +1,18 @@
+body{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+ul {
+    margin: 2rem auto;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+    padding: 1rem;
+    border: 1px solid black;
+}

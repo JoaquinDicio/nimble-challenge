@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
 import { getCandidateByEmail } from "./services/candidateService"
+import { getJobs } from "./services/jobService"
+import JobList from "./components/JobList"
 
 function App() {
 
   const [candidate, setCandidate] = useState(undefined)
+
+  const [jobs, setJobs] = useState(null)
 
   const [error, setError] = useState(null)
 
@@ -13,11 +17,22 @@ function App() {
       .then(data => setCandidate(data))
       .catch(error => setError(error))
 
+    getJobs()
+      .then(data => setJobs(data))
+      .catch(error => setError(error))
+
   }, [])
 
   return (
-    <h1>This is a React App.</h1>
-  )
+    <div>
+      <h1>Open Positions</h1>
+      {
+        jobs?.length > 0 ?
+          <JobList jobs={jobs} candidate={candidate} /> :
+          <i>No jobs available.</i>
+      }
+    </div>
+  );
 }
 
 export default App
