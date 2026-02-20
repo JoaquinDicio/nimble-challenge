@@ -6,22 +6,40 @@ import JobList from "./components/JobList"
 function App() {
 
   const [candidate, setCandidate] = useState(undefined)
-
   const [jobs, setJobs] = useState(null)
-
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-
-    getCandidateByEmail(import.meta.env.VITE_EMAIL)
-      .then(data => setCandidate(data))
-      .catch(error => setError(error))
-
-    getJobs()
-      .then(data => setJobs(data))
-      .catch(error => setError(error))
-
+    loadData()
   }, [])
+
+  async function loadData() {
+    try {
+      setLoading(true)
+
+      const candidate = await getCandidateByEmail(import.meta.env.VITE_EMAIL)
+      setCandidate(candidate)
+
+      const jobs = await getJobs()
+      setJobs(jobs)
+
+    } catch (error) {
+
+      setError(error)
+
+    } finally {
+
+      setLoading(false)
+
+    }
+  }
+
+  if (loading) return <div className="loading">
+    <i>Looking for positions...</i>
+  </div>
+
+  if (error) return <i>{error.message || "Error loading data"}</i>;
 
   return (
     <div>
@@ -29,7 +47,7 @@ function App() {
       {
         jobs?.length > 0 ?
           <JobList jobs={jobs} candidate={candidate} /> :
-          <i>No jobs available.</i>
+          <i>No positions available.</i>
       }
     </div>
   );
